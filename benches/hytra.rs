@@ -30,12 +30,14 @@ fn fetch_add(tot: i64, n: u32) -> i64 {
         }
     })
     .unwrap();
-    return res.into_inner();
+    res.into_inner()
 }
 
 /// A local counter in each thread (manual implementation).
+#[allow(clippy::needless_collect)]
 fn simple_add(tot: i64, n: u32) -> i64 {
     scope(|s| {
+        // We have to collect to start the threads.
         let handles = (0..n)
             .map(|_| {
                 s.spawn(|_| {
@@ -43,7 +45,7 @@ fn simple_add(tot: i64, n: u32) -> i64 {
                     for _ in 0..black_box(tot) {
                         res = black_box(black_box(res) + black_box(1));
                     }
-                    return res;
+                    res
                 })
             })
             .collect::<Vec<_>>();
@@ -55,7 +57,7 @@ fn simple_add(tot: i64, n: u32) -> i64 {
     .unwrap()
 }
 
-/// Counter with `TrAdd`.
+/// Counter with `TrAdder`.
 fn tradd(tot: i64, n: u32) -> i64 {
     let res = TrAdder::new();
     scope(|s| {
@@ -68,14 +70,14 @@ fn tradd(tot: i64, n: u32) -> i64 {
         }
     })
     .unwrap();
-    return res.get();
+    res.get()
 }
 
-/// Counter with `TrAcc` and a function pointer. This is the same as `TrAdd` only if the compiler
+/// Counter with `TrAcc` and a function pointer. This is the same as `TrAdder` only if the compiler
 /// is able to de-virtualize the function pointer call.
 /// This seems to be the case most of the time, but not always.
 fn tradd_fn(tot: i64, n: u32) -> i64 {
-    let res = tradd::new(<i64 as std::ops::Add>::add, 0);
+    let res = TrAcc::new(<i64 as std::ops::Add>::add, 0);
     scope(|s| {
         for _ in 0..n {
             s.spawn(|_| {
@@ -86,7 +88,7 @@ fn tradd_fn(tot: i64, n: u32) -> i64 {
         }
     })
     .unwrap();
-    return res.get();
+    res.get()
 }
 
 const N_ADDS: i64 = 1_000_000;

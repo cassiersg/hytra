@@ -17,7 +17,7 @@
 //! A beast that eats your data from many threads.
 //!
 //! The main type in this library is [`TrAcc`], which allows you to accumulate data in a single
-//! variable from multiple threads extremely fast. A specialized version is [`TrAdd`], that
+//! variable from multiple threads extremely fast. A specialized version is [`TrAdder`], that
 //! contains an sum.
 //!
 //! Hytra has been inspired by Java's
@@ -28,7 +28,7 @@
 //! [`DoubleAdder`](https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/atomic/DoubleAdder.html).
 //!
 //!  [`TrAcc`]: struct.TrAcc.html
-//!  [`TrAdd`]: struct.TrAdd.html
+//!  [`TrAdder`]: struct.TrAdder.html
 
 use atomic::Atomic;
 use crossbeam_utils::CachePadded;
@@ -137,7 +137,7 @@ impl<T: std::ops::Add<T, Output = T>> FnAcc<T> for Adder<T> {
 
 /// The threaded add allows to increment and decrement an integer from multiple threads without
 /// contention, which allows performance to scale well with the number of
-/// thread/processors. `TrAdd` can wrap any primitive integer type.
+/// thread/processors. `TrAdder` can wrap any primitive integer type.
 ///
 /// **Overflow behavior.**
 /// Overflow may occur if the sum of the increments in any subset of the threads overflows, even if
