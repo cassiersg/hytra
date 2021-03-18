@@ -1,9 +1,8 @@
 hytra
 =====
 
-[![Build Status](https://travis-ci.org/Amanieu/thread_local-rs.svg?branch=master)](https://travis-ci.org/Amanieu/thread_local-rs)
+[![Build Status](https://github.com/cassiersg/hytra/actions/workflows/ci.yml/badge.svg)](https://github.com/cassiersg/hytra/actions)
 [![Crates.io](https://img.shields.io/crates/v/hytra.svg)](https://crates.io/crates/hytra)
-[CI](https://github.com/cassiersg/hytra/actions)
 
 *A beast that eats your data from many threads.*
 
