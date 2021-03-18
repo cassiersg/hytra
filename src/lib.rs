@@ -180,6 +180,12 @@ impl<T: Copy + Zero + std::ops::Add<T, Output = T> + Send> TrAdder<T> {
     }
 }
 
+impl<T: Copy + Zero + std::ops::Add<T, Output = T> + Send> Default for TrAdder<T> {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 #[test]
 fn test_adder_single_thread() {
     let adder: TrAdder<i64> = TrAdder::new();
