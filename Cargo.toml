@@ -1,8 +1,14 @@
 [package]
-authors = ["Gaëtan Cassiers <gaetan.cassiers@uclouvain.be>"]
+authors = ["Gaëtan Cassiers"]
 edition = "2018"
 name = "hytra"
 version = "0.1.0"
+description = "Datastructure for fast multi-threaded updates."
+readme = "README.md"
+repository = "https://github.com/cassiersg/hytra"
+license = "MIT OR Apache-2.0"
+keywords = ["accumulator", "adder", "thread", "LongAdder"]
+categories = ["concurrency", "data-structures"]
 
 [dependencies]
 atomic = "0.5"
