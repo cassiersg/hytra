@@ -127,6 +127,7 @@ impl<T: Copy + Send, F: Sync + FnAcc<T>> TrAcc<T, F> {
     }
 }
 
+#[derive(Debug)]
 struct Adder<T>(std::marker::PhantomData<fn() -> T>);
 
 impl<T: std::ops::Add<T, Output = T>> FnAcc<T> for Adder<T> {
@@ -163,6 +164,7 @@ impl<T: std::ops::Add<T, Output = T>> FnAcc<T> for Adder<T> {
 /// ```
 ///
 ///  [`TrAcc`]: struct.ThreadLocal.html
+#[derive(Debug)]
 pub struct TrAdder<T: Copy + Zero + std::ops::Add<T, Output = T> + Send>(TrAcc<T, Adder<T>>);
 
 impl<T: Copy + Zero + std::ops::Add<T, Output = T> + Send> TrAdder<T> {

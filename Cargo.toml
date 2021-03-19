@@ -2,7 +2,7 @@
 authors = ["Gaëtan Cassiers"]
 edition = "2018"
 name = "hytra"
-version = "0.1.1"
+version = "0.1.2"
 description = "Datastructure for fast multi-threaded updates."
 readme = "README.md"
 repository = "https://github.com/cassiersg/hytra"
